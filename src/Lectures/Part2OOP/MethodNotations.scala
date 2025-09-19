@@ -3,14 +3,24 @@ package Part2OOP
 import scala.language.postfixOps
 
 object MethodNotations extends App {
-  class Person(val name:String, favouriteMovie:String) {
+  class Person(val name:String, favouriteMovie:String,val age:Int = 0) {
     def likes(movie:String):Boolean = movie == favouriteMovie
     def hangOutWith(person:Person):String =s"${this.name} is handing out with ${person.name}"
     def +(person: Person):String=s"${this.name} plus ${person.name}"
-    def unary_! : String = s"$name, what the heck!" //need space between ! and :
-    def isAlive:Boolean = true //this function deosnt recieve any parameters
-    def apply(): String = s"Hi may name is $name and i like $favouriteMovie"
 
+    def apply(): String = s"Hi may name is $name and i like $favouriteMovie"
+    //apply allows you to call a method like a function
+    def apply(number:Int):String =s"$name watched her favorite movie $favouriteMovie $number times"
+    def +(nickname:String): Person = new Person(s"$name ($nickname)",favouriteMovie)
+
+    def unary_! : String = s"$name, what the heck!" //need space between ! and :
+    def isAlive:Boolean = true //this function doesn't receive any parameters
+
+    def unary_+ : Person = new Person(s"$name",favouriteMovie,age+1)
+
+    def learns(lesson:String):String = s"$name currently learns $lesson"
+    def learnsScala:String = s"${learns("Scala")}"
+    def learnsScalaToo: String = this learns "Scala"
   }
   val mary = new Person("Mary","Inception")
   println(mary.likes("Inception")) //true
@@ -30,11 +40,11 @@ object MethodNotations extends App {
   println(1+2) //is the same as
   println(1.+(2)) //as ALL OPERATORS ARE METHODS
 
-  //prefix notation also a form of syntatic sugar
-  //synattic sugars are nicer ways of writing code- more resemblant of natural writing
+  //prefix notation also a form of syntactic sugar
+  //syntactic sugars are nicer ways of writing code-more resemblant of natural writing
   val x = -1 // - is a unary operator //equivalent with unary _-
   val y = 1.unary_-
-  //inary prefix only works with a few operators such as - + ~ !
+  //unary prefix only works with a few operators such as - + ~ !
 
   println(!mary) //is same as below // Mary, what the heck!
   println(mary.unary_!) // Mary, what the heck!
@@ -46,6 +56,17 @@ object MethodNotations extends App {
   //not used that often tbh
 
   //APPLY
-  println(mary.apply()) //Hi may name is Mary and i like Inception
-  println(mary()) //can call mary as if it were a function //Hi may name is Mary and i like Inception
+  println(mary.apply()) //Hi may name is Mary and I like Inception
+  println(mary()) //can call mary as if it were a function //Hi may name is Mary and I like Inception
+  println((mary + "the rockstar").apply())
+  println((+mary).age)
+  println(mary learns "Java")
+  println(mary learnsScala)
+  println(mary.apply(2))
+  println(mary.learnsScalaToo)
+
+
+
+
+
 }
