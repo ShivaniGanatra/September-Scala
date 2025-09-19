@@ -1,6 +1,6 @@
 package Part2OOP
 
-object InheritanceAndTraits extends App{
+object Inheritance extends App{
   //single class inheritance
   class Animal {
     def eat = println("yummy")
