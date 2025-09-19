@@ -1,8 +1,9 @@
 package Playground
 
-object Playground {
-  def main(args: Array[String]): Unit = {
-    println("ln")
-  }
+ class Playground {
+    //Scala doesnt have class level functionality 
+   //so you cant access a property from a class
+   
+
 
 }
