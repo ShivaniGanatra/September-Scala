@@ -38,4 +38,6 @@ object ListTest extends App {
   println(list.add(4).head)//4
   println(list.isEmpty)//false
   println(list.toString) //[1 2 3]
+
+
 }

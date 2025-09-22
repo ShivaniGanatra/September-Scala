@@ -67,7 +67,6 @@ object Functions extends App{
   def aFibonacci(n: Int): Int = {
     if (n <= 2) 1
     else aFibonacci(n-1) + aFibonacci(n-2)
-
   }
 
   println(aFibonacci(8)) // 1(1) 2(1) 3(2) 4(3) 5(5) 6(8) 7(13) 8(21)
