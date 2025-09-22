@@ -10,7 +10,7 @@ abstract class MyList {
 
 }
 
-//extend by empty list and non empty list
+//extend by empty list and non-empty list
 //objects can extend classes
 object Empty extends MyList {
   def head: Int = throw new NoSuchElementException
@@ -32,7 +32,7 @@ class Cons(h:Int,t:MyList) extends MyList {
 
 object ListTest extends App {
   //val list = new Cons(1,Empty)
-  val list = new Cons(1,new Cons(2, new Cons(3,Empty)))
+  val list = new newCons(1,new newCons(2, new newCons(3,newEmpty)))
   println(list.head)//1
   println(list.tail.head)//2
   println(list.add(4).head)//4
