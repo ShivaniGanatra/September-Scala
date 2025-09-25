@@ -35,7 +35,7 @@ object HandlingFailures extends App{
   def betterUnsafeMethod(): Try[String]= Failure(new RuntimeException)
   def betterBackupMethod(): Try[String]= Success("A valid result")
   val betterFallback = betterUnsafeMethod() orElse betterBackupMethod()
-//if code might return null use options
+  //if code might return null use options
   //if code might throw exceptions use try
 
   //try also has map, flatmap and filter
@@ -43,8 +43,8 @@ object HandlingFailures extends App{
   println(aSuccess.flatMap(x => Success(x*10))) //Success(30)
   println(aSuccess.filter(_>10)) //Failure(java.util.NoSuchElementException: Predicate does not hold for 3)
 
-  val hostName = "localhost"
-  val Port = "8080"
+  val host = "localhost"
+  val port = "8080"
   def renderHTML(page:String) = println(page)
   
   class Connection {
@@ -53,7 +53,10 @@ object HandlingFailures extends App{
       if(random.nextBoolean()) "<html>...</html>"
       else throw new RuntimeException("Connection interrupted")
     }
+    def getSafe(url:String): Try[String] = Try(get(url))
   }
+
+
   
   object HttpService {
     val random = new Random(System.nanoTime())
@@ -62,7 +65,27 @@ object HandlingFailures extends App{
       if(random.nextBoolean()) new Connection
       else throw new RuntimeException("Someone else took the port")
     }
+    def getSafeConnection(host:String, port:String):Try[Connection] = Try(getConnection(host,port))
   }
+
+  HttpService.getSafeConnection(host,port)
+    .flatMap(connection => connection.getSafe("/home"))
+    .foreach(renderHTML)
+
+  val possibleConnection = HttpService.getSafeConnection(host,port)
+  val possibleHTML = possibleConnection.flatMap(connection => connection.getSafe("/home"))
+  possibleHTML.foreach(renderHTML)
+
+  for {
+    connection <- HttpService.getSafeConnection(host,port)
+    html <-connection.getSafe("home")
+  } renderHTML(html)
+
+  //use try to handle exceptions gracefully
+  //functional way of dealing with failiure map,flatmap or filter
+  //orelse
+
+  //if you design a method to return a some type by may throw an excption return a try typ instead
 
 
 
