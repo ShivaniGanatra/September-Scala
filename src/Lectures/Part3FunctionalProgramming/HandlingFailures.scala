@@ -10,7 +10,7 @@ object HandlingFailures extends App{
 
   //Success(3)
   //Failure(java.lang.RuntimeException: Super failure)
-  //usually dont need to do above cus you can use try instead
+  //usually don't need to do above cus you can use try instead
   def unsafeMethod(): String = throw new RuntimeException("No String")
 
   //this is how you construct try objects via the apply method
@@ -56,8 +56,6 @@ object HandlingFailures extends App{
     def getSafe(url:String): Try[String] = Try(get(url))
   }
 
-
-  
   object HttpService {
     val random = new Random(System.nanoTime())
     
